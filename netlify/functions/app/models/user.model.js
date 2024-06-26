@@ -6,6 +6,7 @@ const filmStatusSchema = new mongoose.Schema({
 		ref: 'Film',
 	},
 	seen: { type: Boolean, default: false },
+	note: { type: String, default: '' },
 });
 
 const userSchema = new mongoose.Schema(

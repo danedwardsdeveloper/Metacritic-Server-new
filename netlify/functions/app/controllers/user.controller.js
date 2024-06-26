@@ -67,6 +67,38 @@ exports.toggleFilmStatus = async (req, res) => {
 	}
 };
 
+exports.addOrUpdateNote = async (req, res) => {
+	try {
+		const userId = req.userId;
+		const { filmId, note } = req.body;
+
+		const user = await User.findById(userId);
+		if (!user) {
+			return res.status(404).send({ message: 'User not found.' });
+		}
+
+		const film = await Film.findById(filmId);
+		if (!film) {
+			return res.status(404).send({ message: 'Film not found.' });
+		}
+
+		const filmStatus = user.films.find(
+			(film) => film.film.toString() === filmId
+		);
+
+		if (filmStatus) {
+			filmStatus.note = note;
+		} else {
+			user.films.push({ film: filmId, seen: false, note });
+		}
+
+		await user.save();
+		res.status(200).send({ message: 'Note added/updated successfully.' });
+	} catch (err) {
+		res.status(500).send({ message: err.message });
+	}
+};
+
 exports.adminBoard = (req, res) => {
 	res.status(200).send('Admin Content.');
 };

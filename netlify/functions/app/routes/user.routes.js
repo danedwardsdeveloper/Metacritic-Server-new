@@ -19,4 +19,10 @@ module.exports = function (app) {
 		[authJwt.verifyToken],
 		controller.toggleFilmStatus
 	);
+
+	app.post(
+		'/api/user/note',
+		[authJwt.verifyToken],
+		controller.addOrUpdateNote
+	);
 };

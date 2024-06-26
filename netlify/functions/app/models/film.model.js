@@ -6,7 +6,6 @@ const filmSchema = new mongoose.Schema(
 		year: { type: Number, required: true },
 		description: { type: String, required: true },
 		metascore: { type: Number, required: true },
-		seen: { type: Boolean, required: true },
 		rank: { type: Number, required: true },
 	},
 	{ collection: 'top_films' }
