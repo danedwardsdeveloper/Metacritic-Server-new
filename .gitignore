@@ -1,0 +1,11 @@
+/node_modules
+package-lock.json
+/build
+.env 
+.env.* 
+.vscode/
+.idea/
+*.log
+.DS_Store
+replacements.txt
+.netlify
