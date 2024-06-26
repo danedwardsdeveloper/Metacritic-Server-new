@@ -6,6 +6,7 @@
 	"scripts": {
 		"start": "nodemon ./functions/server.js",
 		"dev": "nodemon ./functions/server.js",
+		"build": "nodemon ./functions/server.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [
