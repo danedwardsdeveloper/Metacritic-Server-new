@@ -30,7 +30,7 @@ const options = process.env.DB_OPTIONS;
 
 const uri = `mongodb+srv://${user}:${password}@${cluster}/${dbName}?${options}`;
 
-console.log(`Mongo connection string: ${uri}`);
+console.log(`Mongo connection string: ${uri}`, { debug: true });
 
 db.mongoose
 	.connect(uri, {})
