@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "nodemon ./netlify/functions/server.js",
 		"dev": "nodemon ./netlify/functions/server.js",
-		"build": "./netlify/functions/server.js",
+		"build": "nodemon netlify/functions/server.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [
