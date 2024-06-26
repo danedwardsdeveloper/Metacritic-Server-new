@@ -10,15 +10,12 @@ exports.userBoard = async (req, res) => {
 			return res.status(404).send({ message: 'User not found.' });
 		}
 
-		// Get all films
 		const allFilms = await Film.find().sort({ rank: 1 });
 
-		// Create a map of seen films for quick lookup
 		const seenFilmsMap = new Map(
 			user.films.map((f) => [f.film._id.toString(), f.seen])
 		);
 
-		// Prepare the response with the seen status
 		const filmsWithSeenStatus = allFilms.map((film) => ({
 			_id: film._id,
 			title: film.title,
@@ -33,6 +30,38 @@ exports.userBoard = async (req, res) => {
 			username: user.username,
 			films: filmsWithSeenStatus,
 		});
+	} catch (err) {
+		res.status(500).send({ message: err.message });
+	}
+};
+
+exports.toggleSeenFilm = async (req, res) => {
+	try {
+		const userId = req.userId;
+		const filmId = req.body.filmId;
+
+		const user = await User.findById(userId);
+		if (!user) {
+			return res.status(404).send({ message: 'User not found.' });
+		}
+
+		const film = await Film.findById(filmId);
+		if (!film) {
+			return res.status(404).send({ message: 'Film not found.' });
+		}
+
+		const filmStatus = user.films.find(
+			(film) => film.film.toString() === filmId
+		);
+
+		if (filmStatus) {
+			filmStatus.seen = !filmStatus.seen;
+		} else {
+			user.films.push({ film: filmId, seen: true });
+		}
+
+		await user.save();
+		res.status(200).send({ message: 'Film seen status toggled.' });
 	} catch (err) {
 		res.status(500).send({ message: err.message });
 	}

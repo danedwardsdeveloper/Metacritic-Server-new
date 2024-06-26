@@ -14,6 +14,12 @@ module.exports = function (app) {
 
 	app.get('/api/user', [authJwt.verifyToken], controller.userBoard);
 
+	app.post(
+		'/api/user/toggle-film',
+		[authJwt.verifyToken],
+		controller.toggleSeenFilm
+	);
+
 	// app.get(
 	// 	'/api/mod',
 	// 	[authJwt.verifyToken, authJwt.isModerator],
