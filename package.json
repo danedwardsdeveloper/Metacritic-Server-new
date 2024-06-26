@@ -4,7 +4,8 @@
 	"description": "Node.js + MongoDB: JWT Authentication & Authorization",
 	"main": "server.js",
 	"scripts": {
-		"start": "nodemon server.js",
+		"start": "nodemon ./netlify/functions/server.js",
+		"dev": "nodemon ./netlify/functions/server.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [
@@ -21,6 +22,8 @@
 	"author": "bezkoder",
 	"license": "ISC",
 	"devDependencies": {
+		"@netlify/functions": "^2.8.0",
+		"typescript": "^4.9.5",
 		"bcryptjs": "^2.4.3",
 		"cors": "^2.8.5",
 		"dotenv": "^16.4.5",
