@@ -17,18 +17,6 @@ module.exports = function (app) {
 	app.post(
 		'/api/user/toggle-film',
 		[authJwt.verifyToken],
-		controller.toggleSeenFilm
+		controller.toggleFilmStatus
 	);
-
-	// app.get(
-	// 	'/api/mod',
-	// 	[authJwt.verifyToken, authJwt.isModerator],
-	// 	controller.moderatorBoard
-	// );
-
-	// app.get(
-	// 	'/api/admin',
-	// 	[authJwt.verifyToken, authJwt.isAdmin],
-	// 	controller.adminBoard
-	// );
 };

@@ -35,7 +35,7 @@ exports.userBoard = async (req, res) => {
 	}
 };
 
-exports.toggleSeenFilm = async (req, res) => {
+exports.toggleFilmStatus = async (req, res) => {
 	try {
 		const userId = req.userId;
 		const filmId = req.body.filmId;
