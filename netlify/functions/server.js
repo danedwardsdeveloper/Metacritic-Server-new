@@ -47,6 +47,7 @@ require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 
 const nodeEnv = process.env.NODE_ENV;
+console.log(`Environment: ${nodeEnv}`);
 
 if (nodeEnv === 'development') {
 	const PORT = 8080;
