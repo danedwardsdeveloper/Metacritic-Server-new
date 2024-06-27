@@ -20,7 +20,6 @@ app.use(
 );
 
 const db = require('./app/models');
-const Role = db.role;
 
 const user = process.env.DB_USER;
 const password = process.env.DB_PASS;
@@ -30,13 +29,10 @@ const options = process.env.DB_OPTIONS;
 
 const uri = `mongodb+srv://${user}:${password}@${cluster}/${dbName}?${options}`;
 
-console.log(`Mongo connection string: ${uri}`, { debug: true });
-
 db.mongoose
 	.connect(uri, {})
 	.then(() => {
 		console.log('Successfully connect to MongoDB.');
-		// initial();
 	})
 	.catch((err) => {
 		console.error('Connection error', err);
@@ -65,22 +61,4 @@ if (nodeEnv === 'development') {
 	console.log(
 		`Error: NODE_ENV must be set to either 'development' or 'production'.`
 	);
-}
-
-async function initial() {
-	try {
-		const count = await Role.estimatedDocumentCount();
-		if (count === 0) {
-			await new Role({ name: 'user' }).save();
-			console.log("added 'user' to roles collection");
-
-			await new Role({ name: 'moderator' }).save();
-			console.log("added 'moderator' to roles collection");
-
-			await new Role({ name: 'admin' }).save();
-			console.log("added 'admin' to roles collection");
-		}
-	} catch (err) {
-		console.log('error', err);
-	}
 }
