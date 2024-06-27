@@ -1,7 +1,7 @@
 {
 	"name": "node-js-jwt-auth-mongodb",
 	"version": "1.0.0",
-	"description": "Node.js + MongoDB: JWT Authentication & Authorization",
+	"description": "Node.js, Express & MongoDB: JWT Authentication & Authorization",
 	"main": "server.js",
 	"scripts": {
 		"start": "nodemon ./netlify/functions/server.js",
@@ -21,7 +21,7 @@
 		"mongoose"
 	],
 	"author": "Dan",
-	"license": "ISC",
+	"license": "MIT",
 	"dependencies": {
 		"@netlify/functions": "^2.8.0",
 		"bcryptjs": "^2.4.3",
