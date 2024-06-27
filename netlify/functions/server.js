@@ -8,7 +8,26 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
+const productionURL = process.env.PRODUCTION_URL;
+
+const corsOptions = {
+	origin: function (origin, callback) {
+		if (nodeEnv === 'development') {
+			callback(null, true);
+		} else {
+			const allowedOrigin = productionURL;
+			if (origin === allowedOrigin) {
+				callback(null, true);
+			} else {
+				callback(new Error('Not allowed by CORS'));
+			}
+		}
+	},
+	credentials: true,
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
