@@ -63,7 +63,14 @@ exports.toggleFilmStatus = async (req, res) => {
 		await user.save();
 		res.status(200).send({ message: 'Film seen status toggled.' });
 	} catch (err) {
-		res.status(500).send({ message: err.message });
+		if (err.name === 'CastError') {
+			return res.status(400).send({ message: 'Invalid film ID provided.' });
+		} else if (err.message.includes('filmId')) {
+			return res.status(400).send({ message: 'filmId is required.' });
+		} else {
+			console.error(err);
+			return res.status(500).send({ message: 'Internal server error.' });
+		}
 	}
 };
 

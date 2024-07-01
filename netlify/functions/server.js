@@ -32,7 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
 	cookieSession({
-		name: 'dan-session',
+		name: 'jwt',
 		keys: [process.env.JWT_SECRET],
 		httpOnly: true,
 	})
