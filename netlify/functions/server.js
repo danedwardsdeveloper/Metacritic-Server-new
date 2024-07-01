@@ -1,4 +1,6 @@
 const express = require('express');
+const fs = require('fs');
+const https = require('https');
 const cors = require('cors');
 const cookieSession = require('cookie-session');
 const serverless = require('serverless-http');
@@ -7,6 +9,12 @@ const router = express.Router();
 require('dotenv').config();
 
 const app = express();
+
+const privateKey = fs.readFileSync('ssl/privatekey.pem', 'utf8');
+const certificate = fs.readFileSync('ssl/certificate.pem', 'utf8');
+
+const credentials = { key: privateKey, cert: certificate };
+const httpsServer = https.createServer(credentials, app);
 
 const productionURL = process.env.PRODUCTION_URL;
 
@@ -71,8 +79,8 @@ console.log(`Environment: ${nodeEnv}`);
 if (nodeEnv === 'development') {
 	const PORT = 8080;
 	app.use('/', router);
-	app.listen(PORT, () => {
-		console.log(`Server running locally on port ${PORT}`);
+	httpsServer.listen(PORT, () => {
+		console.log(`HTTPS Server running locally on port ${PORT}`);
 	});
 } else if (nodeEnv === 'production') {
 	app.use('/.netlify/functions/server', router);
